@@ -1,7 +1,7 @@
 version: '3.8'
 
 services:
-  # El Sistema Nervioso: Broker MQTT
+  # El Sistema Nervioso Central (MQTT)
   mqtt-broker:
     image: eclipse-mosquitto:latest
     container_name: orion_mqtt
@@ -13,7 +13,7 @@ services:
       - ./docker/mosquitto/data:/mosquitto/data
       - ./docker/mosquitto/log:/mosquitto/log
 
-  # El Núcleo: Gestión de Salud y Lógica SVEP
+  # Núcleo Operativo (Brain)
   orion-brain:
     build:
       context: .

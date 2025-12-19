@@ -1,0 +1,6 @@
+paho-mqtt==1.6.1
+psutil==5.9.5
+python-dotenv==1.0.0
+# Para futuras integraciones:
+requests==2.31.0
+spotipy==2.23.0
