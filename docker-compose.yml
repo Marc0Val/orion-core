@@ -1,0 +1,29 @@
+version: '3.8'
+
+services:
+  # El Sistema Nervioso: Broker MQTT
+  mqtt-broker:
+    image: eclipse-mosquitto:latest
+    container_name: orion_mqtt
+    restart: always
+    ports:
+      - "1883:1883"
+    volumes:
+      - ./docker/mosquitto/config:/mosquitto/config
+      - ./docker/mosquitto/data:/mosquitto/data
+      - ./docker/mosquitto/log:/mosquitto/log
+
+  # El Núcleo: Gestión de Salud y Lógica SVEP
+  orion-brain:
+    build:
+      context: .
+      dockerfile: ./docker/brain.Dockerfile
+    container_name: orion_brain
+    restart: always
+    depends_on:
+      - mqtt-broker
+    volumes:
+      - ./src:/app/src
+      - ./config:/app/config
+    environment:
+      - MQTT_HOST=mqtt-broker
