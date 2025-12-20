@@ -1,7 +1,6 @@
 version: '3.8'
 
 services:
-  # El Sistema Nervioso Central (MQTT)
   mqtt-broker:
     image: eclipse-mosquitto:latest
     container_name: orion_mqtt
@@ -13,21 +12,16 @@ services:
       - ./docker/mosquitto/data:/mosquitto/data
       - ./docker/mosquitto/log:/mosquitto/log
 
-  # Núcleo Operativo (Brain)
   orion-brain:
     build:
       context: .
       dockerfile: ./docker/brain.Dockerfile
     container_name: orion_brain
     restart: always
-    privileged: true
-    network_mode: host
-    depends_on:
-      - mqtt-broker
+    [cite_start]privileged: true 
+    [cite_start]network_mode: host 
     volumes:
       - ./src:/app/src
       - ./config:/app/config
-    devices:
-      - "/dev/gpiomem:/dev/gpiomem"
-    environment:
-      - MQTT_HOST=mqtt-broker
+    depends_on:
+      - mqtt-broker
