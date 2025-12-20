@@ -3,7 +3,7 @@ from src.utils.mqtt_client import OrionMQTT
 
 class OrionRelays:
     def __init__(self):
-        # Configuración de Pines extraída de su configuración 
+        # Configuración de Pines extraída de  configuración 
         self.MAIN_LIGHT = 17 
         self.AMBIENT_LIGHT = 16
         
