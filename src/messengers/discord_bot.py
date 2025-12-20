@@ -8,8 +8,7 @@ load_dotenv("config/.env")
 
 class OrionDiscord(commands.Bot):
     def __init__(self):
-        intents = discord.Intents.default()
-        intents.message_content = True # Vital para escuchar comandos
+        intents = discord.Intents.all() # Activamos todas las capacidades
         super().__init__(command_prefix='/', intents=intents)
         self.channel_id = int(os.getenv("DISCORD_CHANNEL_ID"))
 

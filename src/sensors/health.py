@@ -9,12 +9,19 @@ class Homeostasis:
         # Retorna el porcentaje de carga de CPU [cite: 65]
         return psutil.cpu_percent(interval=1)
 
+    def get_cpu_usage(self):
+        # Retorna el porcentaje de carga de CPU [cite: 65]
+        return psutil.cpu_percent(interval=1)
+
     def get_temperature(self):
-        # Lee la temperatura del procesador de la Pi 4 [cite: 66]
+        """Lee la temperatura directamente del sistema de archivos térmico"""
         try:
-            temp = os.popen("vcgencmd measure_temp").readline()
-            return float(temp.replace("temp=", "").replace("'C\n", ""))
-        except Exception:
+            # Ruta estándar en Raspberry Pi para la temperatura del CPU
+            with open("/sys/class/thermal/thermal_zone0/temp", "r") as f:
+                temp_raw = f.read()
+            return float(temp_raw) / 1000.0
+        except Exception as e:
+            print(f"Error al leer temperatura física: {e}")
             return 0.0
 
     def monitor(self):
