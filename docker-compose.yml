@@ -31,4 +31,4 @@ services:
       - "/dev/gpiomem:/dev/gpiomem"
     environment:
       - MQTT_HOST=localhost
-      -PYTHONPATH=/app
+      - PYTHONPATH=/app
