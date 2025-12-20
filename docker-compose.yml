@@ -20,10 +20,14 @@ services:
       dockerfile: ./docker/brain.Dockerfile
     container_name: orion_brain
     restart: always
+    privileged: true
+    network_mode: host
     depends_on:
       - mqtt-broker
     volumes:
       - ./src:/app/src
       - ./config:/app/config
+    devices:
+      - "/dev/gpiomem:/dev/gpiomem"
     environment:
       - MQTT_HOST=mqtt-broker
